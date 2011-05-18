@@ -34,6 +34,7 @@ public class BuddahBrot {
     private String transferFunction;
     private float factor;
     private float overexposure;
+    private float exponent;
     private int samplesPerWorkingItemSide, workingItemsPerSide;
     private int imageWidth, imageHeight;
     
@@ -54,7 +55,7 @@ public class BuddahBrot {
     
     
     public BuddahBrot(int redMin, int redMax, int greenMin, int greenMax, int blueMin, int blueMax, 
-            String transferFunction, float factor, float overexposure, 
+            String transferFunction, float factor, float overexposure, float exponent,
             int samplesPerWorkingItemSide, int workingItemsPerSide, 
             int imageWidth, int imageHeight,
             CLContext context,CLDevice device ) {
@@ -64,6 +65,7 @@ public class BuddahBrot {
         this.greenMax = greenMax;
         this.blueMin = blueMin;
         this.blueMax = blueMax;
+        this.exponent = exponent;
         this.transferFunction = transferFunction;
         this.factor = factor;
         this.overexposure = overexposure;
@@ -105,7 +107,8 @@ public class BuddahBrot {
         CLMem blue = CL10.clCreateBuffer(context, CL10.CL_MEM_WRITE_ONLY | CL10.CL_MEM_COPY_HOST_PTR, blueBuffer, null);
         
         // program/kernel creation
-        CLProgram program = CL10.clCreateProgramWithSource(context, getSourceCode("buddah.cl"), null);
+        String sourceFileName = exponent!=2.0f?"buddahWithNot2Exp.cl":"buddah.cl";
+        CLProgram program = CL10.clCreateProgramWithSource(context, getSourceCode(sourceFileName), null);
         Util.checkCLError(CL10.clBuildProgram(program, device, "", null));
         CLKernel kernel = CL10.clCreateKernel(program, "buddah", null);
 
@@ -122,7 +125,10 @@ public class BuddahBrot {
         kernel.setArg(6, redMin); kernel.setArg(7, redMax);
         kernel.setArg(8, greenMin); kernel.setArg(9, greenMax);
         kernel.setArg(10, blueMin); kernel.setArg(11, blueMax);
-        kernel.setArg(12, Math.max(Math.max(redMax, greenMax), blueMax)); 
+        kernel.setArg(12, Math.max(Math.max(redMax, greenMax), blueMax));
+        if(exponent != 2.0f){
+            kernel.setArg(13, exponent);
+        }
         CL10.clEnqueueNDRangeKernel(queue, kernel, 2, null, sizeNxN, null, null, null);
         
         // read the results back

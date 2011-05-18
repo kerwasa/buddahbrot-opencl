@@ -75,6 +75,8 @@ public class MainFrame extends javax.swing.JFrame {
         transferFactor = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         overexposureText = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        exponentText = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         samplesPerWorkingEdgeText = new javax.swing.JTextField();
@@ -150,6 +152,10 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel16.setText("P:");
+
+        exponentText.setText("2");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -188,9 +194,14 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(jLabel7)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(transferCombo, 0, 166, Short.MAX_VALUE)
                     .addComponent(overexposureText)
-                    .addComponent(transferFactor)
-                    .addComponent(transferCombo, 0, 166, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(transferFactor, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel16)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(exponentText, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -210,7 +221,9 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(greenMaxText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
-                    .addComponent(transferFactor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(transferFactor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16)
+                    .addComponent(exponentText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -389,6 +402,7 @@ public class MainFrame extends javax.swing.JFrame {
         String transferFunction = transferCombo.getSelectedItem().toString();
         float factor = Float.parseFloat( transferFactor.getText() );
         float overexposure = Float.parseFloat( overexposureText.getText() );
+        float exponent = Float.parseFloat( exponentText.getText() );
         int samplesPerWorkingItemSide = Integer.parseInt( samplesPerWorkingEdgeText.getText() );
         int workingItemsPerSide = Integer.parseInt(nWorkingItemText.getText());
         int imageWidth = Integer.parseInt(imageWidthText.getText());
@@ -397,7 +411,7 @@ public class MainFrame extends javax.swing.JFrame {
         //create worker
         BuddahBrot buddah = new BuddahBrot(
                 redMin,redMax,greenMin,greenMax,blueMin,blueMax,
-                transferFunction,factor,overexposure,
+                transferFunction,factor,overexposure,exponent,
                 samplesPerWorkingItemSide,workingItemsPerSide,
                 imageWidth,imageHeight,
                 context,device);
@@ -425,6 +439,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField blueMaxTest;
     private javax.swing.JTextField blueMinText;
     private javax.swing.JList cardsList;
+    private javax.swing.JTextField exponentText;
     private javax.swing.JButton generateButton;
     private javax.swing.JTextField greenMaxText;
     private javax.swing.JTextField greenMinText;
@@ -437,6 +452,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
