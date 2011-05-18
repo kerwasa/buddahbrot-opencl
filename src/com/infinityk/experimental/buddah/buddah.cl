@@ -25,14 +25,65 @@ kernel void buddah(int samplesPerWorkingItemSide,
 			
             int iterations = 0;
             float2 z = (0.0f);
-            for(iterations = 0; iterations < maxIters; ++iterations){
+            float e1=0.0f,e2=0.0f,e3=0.0f,e4=0.0f,e5=0.0f,e6=0.0f,e7=0.0f;
+            for(iterations = 0; iterations < maxIters; iterations += 8){
 		n = z.xyxx * z.xyyx;			
 		z.y = (2.0f * n.z); 
 		z.x = n.x - n.y;
 		z += p;
-		if (n.x + n.y > 4.0f){ break; }
+		e1 = n.x + n.y;
+                
+                n = z.xyxx * z.xyyx;			
+		z.y = (2.0f * n.z); 
+		z.x = n.x - n.y;
+		z += p;
+		e2 = n.x + n.y;
+
+                n = z.xyxx * z.xyyx;			
+		z.y = (2.0f * n.z); 
+		z.x = n.x - n.y;
+		z += p;
+		e3 = n.x + n.y;
+
+                n = z.xyxx * z.xyyx;			
+		z.y = (2.0f * n.z); 
+		z.x = n.x - n.y;
+		z += p;
+		e4 = n.x + n.y;
+
+                n = z.xyxx * z.xyyx;			
+		z.y = (2.0f * n.z); 
+		z.x = n.x - n.y;
+		z += p;
+		e5 = n.x + n.y;
+
+                n = z.xyxx * z.xyyx;			
+		z.y = (2.0f * n.z); 
+		z.x = n.x - n.y;
+		z += p;
+		e6 = n.x + n.y;
+
+                n = z.xyxx * z.xyyx;			
+		z.y = (2.0f * n.z); 
+		z.x = n.x - n.y;
+		z += p;
+		e7 = n.x + n.y;
+
+                n = z.xyxx * z.xyyx;			
+		z.y = (2.0f * n.z); 
+		z.x = n.x - n.y;
+		z += p;
+		if (n.x + n.y > 4.0f) { break; }
             }
-			
+
+            if (e1 > 4.0f) { iterations -= 7;}
+            else if (e2 > 4.0f) { iterations -= 6;}
+            else if (e3 > 4.0f) { iterations -= 5;}
+            else if (e4 > 4.0f) { iterations -= 4;}
+            else if (e5 > 4.0f) { iterations -= 3;}
+            else if (e6 > 4.0f) { iterations -= 2;}
+            else if (e7 > 4.0f) { iterations -= 1;}
+           
             if ( iterations == maxIters){
 		continue;
             }
@@ -50,6 +101,97 @@ kernel void buddah(int samplesPerWorkingItemSide,
 			
             z = (0.0f);
             int imageX, imageY;
+            for( ;iterations > 8; iterations-=8){
+		n = z.xyxx * z.xyyx;			
+		z.y = (2.0f * n.z); 
+		z.x = n.x - n.y;
+		z += p;
+		imageX = (z.x + 2.0f) * imageWidth / 3.0f;
+		imageY = (z.y + 1.0f) * imageHeight / 2.0f;
+		if (imageX >= 0 && imageX < imageWidth && imageY >= 0 && imageY < imageHeight){
+                    target[imageX + imageY * imageWidth]++;
+		}
+
+                n = z.xyxx * z.xyyx;			
+		z.y = (2.0f * n.z); 
+		z.x = n.x - n.y;
+		z += p;
+		imageX = (z.x + 2.0f) * imageWidth / 3.0f;
+		imageY = (z.y + 1.0f) * imageHeight / 2.0f;
+		if (imageX >= 0 && imageX < imageWidth && imageY >= 0 && imageY < imageHeight){
+                    target[imageX + imageY * imageWidth]++;
+		}
+
+                n = z.xyxx * z.xyyx;			
+		z.y = (2.0f * n.z); 
+		z.x = n.x - n.y;
+		z += p;
+		imageX = (z.x + 2.0f) * imageWidth / 3.0f;
+		imageY = (z.y + 1.0f) * imageHeight / 2.0f;
+		if (imageX >= 0 && imageX < imageWidth && imageY >= 0 && imageY < imageHeight){
+                    target[imageX + imageY * imageWidth]++;
+		}
+
+                n = z.xyxx * z.xyyx;			
+		z.y = (2.0f * n.z); 
+		z.x = n.x - n.y;
+		z += p;
+		imageX = (z.x + 2.0f) * imageWidth / 3.0f;
+		imageY = (z.y + 1.0f) * imageHeight / 2.0f;
+		if (imageX >= 0 && imageX < imageWidth && imageY >= 0 && imageY < imageHeight){
+                    target[imageX + imageY * imageWidth]++;
+		}
+
+                n = z.xyxx * z.xyyx;			
+		z.y = (2.0f * n.z); 
+		z.x = n.x - n.y;
+		z += p;
+		imageX = (z.x + 2.0f) * imageWidth / 3.0f;
+		imageY = (z.y + 1.0f) * imageHeight / 2.0f;
+		if (imageX >= 0 && imageX < imageWidth && imageY >= 0 && imageY < imageHeight){
+                    target[imageX + imageY * imageWidth]++;
+		}
+
+                n = z.xyxx * z.xyyx;			
+		z.y = (2.0f * n.z); 
+		z.x = n.x - n.y;
+		z += p;
+		imageX = (z.x + 2.0f) * imageWidth / 3.0f;
+		imageY = (z.y + 1.0f) * imageHeight / 2.0f;
+		if (imageX >= 0 && imageX < imageWidth && imageY >= 0 && imageY < imageHeight){
+                    target[imageX + imageY * imageWidth]++;
+		}
+
+                n = z.xyxx * z.xyyx;			
+		z.y = (2.0f * n.z); 
+		z.x = n.x - n.y;
+		z += p;
+		imageX = (z.x + 2.0f) * imageWidth / 3.0f;
+		imageY = (z.y + 1.0f) * imageHeight / 2.0f;
+		if (imageX >= 0 && imageX < imageWidth && imageY >= 0 && imageY < imageHeight){
+                    target[imageX + imageY * imageWidth]++;
+		}
+
+                n = z.xyxx * z.xyyx;			
+		z.y = (2.0f * n.z); 
+		z.x = n.x - n.y;
+		z += p;
+		imageX = (z.x + 2.0f) * imageWidth / 3.0f;
+		imageY = (z.y + 1.0f) * imageHeight / 2.0f;
+		if (imageX >= 0 && imageX < imageWidth && imageY >= 0 && imageY < imageHeight){
+                    target[imageX + imageY * imageWidth]++;
+		}
+
+                n = z.xyxx * z.xyyx;			
+		z.y = (2.0f * n.z); 
+		z.x = n.x - n.y;
+		z += p;
+		imageX = (z.x + 2.0f) * imageWidth / 3.0f;
+		imageY = (z.y + 1.0f) * imageHeight / 2.0f;
+		if (imageX >= 0 && imageX < imageWidth && imageY >= 0 && imageY < imageHeight){
+                    target[imageX + imageY * imageWidth]++;
+		}
+            }
             for( ;iterations > 0; --iterations){
 		n = z.xyxx * z.xyyx;			
 		z.y = (2.0f * n.z); 
