@@ -24,7 +24,7 @@ kernel void buddah(int samplesPerWorkingItemSide,
             if (n.x + 2.0f*p.x + n.y < -0.9375f) { continue; }
 			
             int iterations = 0;
-            float2 z = (0.0f);
+            float2 z = (float2)(0.0f,0.0f);
             float e1=0.0f,e2=0.0f,e3=0.0f,e4=0.0f,e5=0.0f,e6=0.0f,e7=0.0f;
             for(iterations = 0; iterations < maxIters; iterations += 8){
 		n = z.xyxx * z.xyyx;			
@@ -99,7 +99,7 @@ kernel void buddah(int samplesPerWorkingItemSide,
                 continue;
             }
 			
-            z = (0.0f);
+            z = (float2)(0.0f,0.0f);
             int imageX, imageY;
             for( ;iterations > 8; iterations-=8){
 		n = z.xyxx * z.xyyx;			
