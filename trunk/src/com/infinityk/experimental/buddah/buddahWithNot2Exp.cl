@@ -111,112 +111,18 @@ kernel void buddah(int samplesPerWorkingItemSide,
             float imgPX, imgPY;
             imgPX = imageWidth / 3.0f;
             imgPY = imageHeight / 2.0f;
-            for( ;iterations > 8; iterations-=8){
-                l = length(z);
-                temp1 = pow(l, ex);
-                temp2 = ex * atan2(z.y,z.x);
-		z = (float2)(temp1 * cos(temp2), temp1 * sin(temp2));
-                z += p;
-		imageX = (z.x + 2.0f) * imgPX;
-		imageY = (z.y + 1.0f) * imgPY;
-		if (imageX >= 0 && imageX < imageWidth && imageY >= 0 && imageY < imageHeight){
-                    target[imageX + imageY * imageWidth]++;
-		}
-
-                l = length(z);
-                temp1 = pow(l, ex);
-                temp2 = ex * atan2(z.y,z.x);
-		z = (float2)(temp1 * cos(temp2), temp1 * sin(temp2));
-                z += p;
-		imageX = (z.x + 2.0f) * imgPX;
-		imageY = (z.y + 1.0f) * imgPY;
-		if (imageX >= 0 && imageX < imageWidth && imageY >= 0 && imageY < imageHeight){
-                    target[imageX + imageY * imageWidth]++;
-		}
-
-                l = length(z);
-                temp1 = pow(l, ex);
-                temp2 = ex * atan2(z.y,z.x);
-		z = (float2)(temp1 * cos(temp2), temp1 * sin(temp2));
-                z += p;
-		imageX = (z.x + 2.0f) * imgPX;
-		imageY = (z.y + 1.0f) * imgPY;
-		if (imageX >= 0 && imageX < imageWidth && imageY >= 0 && imageY < imageHeight){
-                    target[imageX + imageY * imageWidth]++;
-		}
-
-                l = length(z);
-                temp1 = pow(l, ex);
-                temp2 = ex * atan2(z.y,z.x);
-		z = (float2)(temp1 * cos(temp2), temp1 * sin(temp2));
-                z += p;
-		imageX = (z.x + 2.0f) * imgPX;
-		imageY = (z.y + 1.0f) * imgPY;
-		if (imageX >= 0 && imageX < imageWidth && imageY >= 0 && imageY < imageHeight){
-                    target[imageX + imageY * imageWidth]++;
-		}
-
-                l = length(z);
-                temp1 = pow(l, ex);
-                temp2 = ex * atan2(z.y,z.x);
-		z = (float2)(temp1 * cos(temp2), temp1 * sin(temp2));
-                z += p;
-		imageX = (z.x + 2.0f) * imgPX;
-		imageY = (z.y + 1.0f) * imgPY;
-		if (imageX >= 0 && imageX < imageWidth && imageY >= 0 && imageY < imageHeight){
-                    target[imageX + imageY * imageWidth]++;
-		}
-
-                l = length(z);
-                temp1 = pow(l, ex);
-                temp2 = ex * atan2(z.y,z.x);
-		z = (float2)(temp1 * cos(temp2), temp1 * sin(temp2));
-                z += p;
-		imageX = (z.x + 2.0f) * imgPX;
-		imageY = (z.y + 1.0f) * imgPY;
-		if (imageX >= 0 && imageX < imageWidth && imageY >= 0 && imageY < imageHeight){
-                    target[imageX + imageY * imageWidth]++;
-		}
-
-                l = length(z);
-                temp1 = pow(l, ex);
-                temp2 = ex * atan2(z.y,z.x);
-		z = (float2)(temp1 * cos(temp2), temp1 * sin(temp2));
-                z += p;
-		imageX = (z.x + 2.0f) * imgPX;
-		imageY = (z.y + 1.0f) * imgPY;
-		if (imageX >= 0 && imageX < imageWidth && imageY >= 0 && imageY < imageHeight){
-                    target[imageX + imageY * imageWidth]++;
-		}
-
-                l = length(z);
-                temp1 = pow(l, ex);
-                temp2 = ex * atan2(z.y,z.x);
-		z = (float2)(temp1 * cos(temp2), temp1 * sin(temp2));
-                z += p;
-		imageX = (z.x + 2.0f) * imgPX;
-		imageY = (z.y + 1.0f) * imgPY;
-		if (imageX >= 0 && imageX < imageWidth && imageY >= 0 && imageY < imageHeight){
-                    target[imageX + imageY * imageWidth]++;
-		}
-
-            }
-
             for( ;iterations > 0; --iterations){
                 l = length(z);
                 temp1 = pow(l, ex);
                 temp2 = ex * atan2(z.y,z.x);
 		z = (float2)(temp1 * cos(temp2), temp1 * sin(temp2));
                 z += p;
-
 		imageX = (z.x + 2.0f) * imgPX;
 		imageY = (z.y + 1.0f) * imgPY;
 		if (imageX >= 0 && imageX < imageWidth && imageY >= 0 && imageY < imageHeight){
-                    //atom_inc(& target[imageX + imageY * imageWidth]);
                     target[imageX + imageY * imageWidth]++;
 		}
             }
-
 	}
     }
 }

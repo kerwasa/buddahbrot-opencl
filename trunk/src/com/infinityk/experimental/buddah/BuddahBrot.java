@@ -206,5 +206,55 @@ public class BuddahBrot {
         ImageIO.write(bi, "png", new File(text));
     }
 
-  
+    public void setBlueMax(int blueMax) {
+        this.blueMax = blueMax;
+    }
+
+    public void setBlueMin(int blueMin) {
+        this.blueMin = blueMin;
+    }
+
+    public void setExponent(float exponent) {
+        this.exponent = exponent;
+    }
+
+    public void setFactor(float factor) {
+        this.factor = factor;
+    }
+
+    public void setGreenMax(int greenMax) {
+        this.greenMax = greenMax;
+    }
+
+    public void setGreenMin(int greenMin) {
+        this.greenMin = greenMin;
+    }
+
+    public void setImageHeight(int imageHeight) {
+        this.imageHeight = imageHeight;
+    }
+
+    public void setImageWidth(int imageWidth) {
+        this.imageWidth = imageWidth;
+    }
+
+    public void setOverexposure(float overexposure) {
+        this.overexposure = overexposure;
+    }
+
+    public void setRedMax(int redMax) {
+        this.redMax = redMax;
+    }
+
+    public void setRedMin(int redMin) {
+        this.redMin = redMin;
+    }
+
+    public void setSamplesPerWorkingItemSide(int samplesPerWorkingItemSide) {
+        this.samplesPerWorkingItemSide = samplesPerWorkingItemSide;
+    }
+
+    public void setTransferFunction(String transferFunction) {
+        this.transferFunction = transferFunction;
+    }
 }
