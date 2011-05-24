@@ -103,11 +103,6 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel1.setText("Red:");
 
         redMinText.setText("0");
-        redMinText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                redMinTextActionPerformed(evt);
-            }
-        });
 
         jLabel2.setText("to");
 
@@ -146,11 +141,6 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel9.setText("Overexposure:");
 
         overexposureText.setText("1.5");
-        overexposureText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                overexposureTextActionPerformed(evt);
-            }
-        });
 
         jLabel16.setText("P:");
 
@@ -367,14 +357,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void overexposureTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_overexposureTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_overexposureTextActionPerformed
-
-    private void redMinTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_redMinTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_redMinTextActionPerformed
 
     private void outputButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outputButtonActionPerformed
         String path = FileUtils.selectNonExistingFile(this, ".png");

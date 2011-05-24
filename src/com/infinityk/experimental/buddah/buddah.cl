@@ -98,112 +98,25 @@ kernel void buddah(int samplesPerWorkingItemSide,
             }else{
                 continue;
             }
+
+            
 			
             z = (float2)(0.0f,0.0f);
             int imageX, imageY;
-            for( ;iterations > 8; iterations-=8){
-		n = z.xyxx * z.xyyx;			
-		z.y = (2.0f * n.z); 
-		z.x = n.x - n.y;
-		z += p;
-		imageX = (z.x + 2.0f) * imageWidth / 3.0f;
-		imageY = (z.y + 1.0f) * imageHeight / 2.0f;
-		if (imageX >= 0 && imageX < imageWidth && imageY >= 0 && imageY < imageHeight){
-                    target[imageX + imageY * imageWidth]++;
-		}
-
-                n = z.xyxx * z.xyyx;			
-		z.y = (2.0f * n.z); 
-		z.x = n.x - n.y;
-		z += p;
-		imageX = (z.x + 2.0f) * imageWidth / 3.0f;
-		imageY = (z.y + 1.0f) * imageHeight / 2.0f;
-		if (imageX >= 0 && imageX < imageWidth && imageY >= 0 && imageY < imageHeight){
-                    target[imageX + imageY * imageWidth]++;
-		}
-
-                n = z.xyxx * z.xyyx;			
-		z.y = (2.0f * n.z); 
-		z.x = n.x - n.y;
-		z += p;
-		imageX = (z.x + 2.0f) * imageWidth / 3.0f;
-		imageY = (z.y + 1.0f) * imageHeight / 2.0f;
-		if (imageX >= 0 && imageX < imageWidth && imageY >= 0 && imageY < imageHeight){
-                    target[imageX + imageY * imageWidth]++;
-		}
-
-                n = z.xyxx * z.xyyx;			
-		z.y = (2.0f * n.z); 
-		z.x = n.x - n.y;
-		z += p;
-		imageX = (z.x + 2.0f) * imageWidth / 3.0f;
-		imageY = (z.y + 1.0f) * imageHeight / 2.0f;
-		if (imageX >= 0 && imageX < imageWidth && imageY >= 0 && imageY < imageHeight){
-                    target[imageX + imageY * imageWidth]++;
-		}
-
-                n = z.xyxx * z.xyyx;			
-		z.y = (2.0f * n.z); 
-		z.x = n.x - n.y;
-		z += p;
-		imageX = (z.x + 2.0f) * imageWidth / 3.0f;
-		imageY = (z.y + 1.0f) * imageHeight / 2.0f;
-		if (imageX >= 0 && imageX < imageWidth && imageY >= 0 && imageY < imageHeight){
-                    target[imageX + imageY * imageWidth]++;
-		}
-
-                n = z.xyxx * z.xyyx;			
-		z.y = (2.0f * n.z); 
-		z.x = n.x - n.y;
-		z += p;
-		imageX = (z.x + 2.0f) * imageWidth / 3.0f;
-		imageY = (z.y + 1.0f) * imageHeight / 2.0f;
-		if (imageX >= 0 && imageX < imageWidth && imageY >= 0 && imageY < imageHeight){
-                    target[imageX + imageY * imageWidth]++;
-		}
-
-                n = z.xyxx * z.xyyx;			
-		z.y = (2.0f * n.z); 
-		z.x = n.x - n.y;
-		z += p;
-		imageX = (z.x + 2.0f) * imageWidth / 3.0f;
-		imageY = (z.y + 1.0f) * imageHeight / 2.0f;
-		if (imageX >= 0 && imageX < imageWidth && imageY >= 0 && imageY < imageHeight){
-                    target[imageX + imageY * imageWidth]++;
-		}
-
-                n = z.xyxx * z.xyyx;			
-		z.y = (2.0f * n.z); 
-		z.x = n.x - n.y;
-		z += p;
-		imageX = (z.x + 2.0f) * imageWidth / 3.0f;
-		imageY = (z.y + 1.0f) * imageHeight / 2.0f;
-		if (imageX >= 0 && imageX < imageWidth && imageY >= 0 && imageY < imageHeight){
-                    target[imageX + imageY * imageWidth]++;
-		}
-
-                n = z.xyxx * z.xyyx;			
-		z.y = (2.0f * n.z); 
-		z.x = n.x - n.y;
-		z += p;
-		imageX = (z.x + 2.0f) * imageWidth / 3.0f;
-		imageY = (z.y + 1.0f) * imageHeight / 2.0f;
-		if (imageX >= 0 && imageX < imageWidth && imageY >= 0 && imageY < imageHeight){
-                    target[imageX + imageY * imageWidth]++;
-		}
-            }
+            float imgPX, imgPY;
+            imgPX = imageWidth / 3.0f;
+            imgPY = imageHeight / 2.0f;
             for( ;iterations > 0; --iterations){
 		n = z.xyxx * z.xyyx;			
 		z.y = (2.0f * n.z); 
 		z.x = n.x - n.y;
 		z += p;
-		imageX = (z.x + 2.0f) * imageWidth / 3.0f;
-		imageY = (z.y + 1.0f) * imageHeight / 2.0f;
+		imageX = (z.x + 2.0f) * imgPX;
+		imageY = (z.y + 1.0f) * imgPY;
 		if (imageX >= 0 && imageX < imageWidth && imageY >= 0 && imageY < imageHeight){
-                    //atom_inc(& target[imageX + imageY * imageWidth]);
                     target[imageX + imageY * imageWidth]++;
 		}
-            }
+            } 
 	}
     }
 }
