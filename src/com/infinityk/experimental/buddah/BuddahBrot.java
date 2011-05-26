@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.IntBuffer;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -45,6 +46,8 @@ public class BuddahBrot {
     private IntBuffer blueBuffer;
     private IntBuffer greenBuffer;
     private int[] argb;
+    
+    private boolean switchColorChannels;
     
     private double time;
 
@@ -93,6 +96,13 @@ public class BuddahBrot {
     }
     
     public void calcDensityMaps() {
+        System.out.println("Calc w=" 
+                + samplesPerWorkingItemSide + " e=" + exponent 
+                + " t=" + transferFunction + " f=" + factor 
+                + " o=" + overexposure 
+                + " c=" + redMin + "-" + redMax +  "," 
+                + greenMin + "-" + greenMax + ","
+                + blueMin + "-" + blueMax + ",");
         CLCommandQueue queue = CL10.clCreateCommandQueue(context, device, 0, null);
 
         time = System.currentTimeMillis();
@@ -169,22 +179,33 @@ public class BuddahBrot {
                 red = (int)(255.0f * overexposure * (1.0f - Math.exp(-redBuffer.get(i) / maxRed * factor) ) );
                 green = (int)(255.0f * overexposure * (1.0f - Math.exp(-greenBuffer.get(i) / maxGreen * factor) ) );
                 blue = (int)(255.0f * overexposure * (1.0f - Math.exp(-blueBuffer.get(i) / maxBlue * factor) ) );
+                
                 red = Math.min(Math.max(red, 0),255);
                 green = Math.min(Math.max(green, 0),255);
                 blue = Math.min(Math.max(blue, 0),255);
+                if(switchColorChannels){
+                    int temp = red;
+                    red = green;
+                    green = blue;
+                    blue = temp;
+                }
+                
                 argb[i] = ((0xFF) << 24) | ((red & 0xFF) << 16) | ((green & 0xFF) << 8) | ((blue & 0xFF));
             }
         }else if(transferFunction.equalsIgnoreCase("Logarithmic")){
-            maxRed = (float)Math.log(factor * maxRed + 1);
-            maxGreen = (float)Math.log(factor * maxGreen + 1);
-            maxBlue = (float)Math.log(factor * maxBlue + 1);
             for(int i = 0; i < nPixels; ++i){
-                red = (int)(255.0f * overexposure * (Math.log(factor * redBuffer.get(i) + 1)) / maxRed);
-                green = (int)(255.0f * overexposure * (Math.log(factor * greenBuffer.get(i) + 1)) / maxGreen);
-                blue = (int)(255.0f * overexposure * (Math.log(factor * blueBuffer.get(i) + 1)) / maxBlue);
+                red = (int)(255.0f * overexposure * (Math.log(factor * redBuffer.get(i)/ maxRed + 1)) );
+                green = (int)(255.0f * overexposure * (Math.log(factor * greenBuffer.get(i)/ maxGreen + 1)) );
+                blue = (int)(255.0f * overexposure * (Math.log(factor * blueBuffer.get(i)/ maxBlue + 1)) );
                 red = Math.min(Math.max(red, 0),255);
                 green = Math.min(Math.max(green, 0),255);
                 blue = Math.min(Math.max(blue, 0),255);
+                if(switchColorChannels){
+                    int temp = red;
+                    red = green;
+                    green = blue;
+                    blue = temp;
+                }
                 argb[i] = ((0xFF) << 24) | ((red & 0xFF) << 16) | ((green & 0xFF) << 8) | ((blue & 0xFF));
             }
         }else{
@@ -195,12 +216,19 @@ public class BuddahBrot {
                 red = Math.min(Math.max(red, 0),255);
                 green = Math.min(Math.max(green, 0),255);
                 blue = Math.min(Math.max(blue, 0),255);
+                if(switchColorChannels){
+                    int temp = red;
+                    red = green;
+                    green = blue;
+                    blue = temp;
+                }
                 argb[i] = ((0xFF) << 24) | ((red & 0xFF) << 16) | ((green & 0xFF) << 8) | ((blue & 0xFF));
             }
         }
     }
 
     public void saveImage(String text) throws IOException {
+        System.out.println("Saving image " + text + " -> " + new Date());
         BufferedImage bi = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_ARGB);
         bi.setRGB(0, 0, imageWidth, imageHeight, argb, 0, imageWidth);
         ImageIO.write(bi, "png", new File(text));
@@ -257,4 +285,10 @@ public class BuddahBrot {
     public void setTransferFunction(String transferFunction) {
         this.transferFunction = transferFunction;
     }
+
+    public void setSwitchColorChannels(boolean switchColorChannels) {
+        this.switchColorChannels = switchColorChannels;
+    }
+    
+    
 }
